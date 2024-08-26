@@ -58,8 +58,19 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        git clone $REPO_URL -b$REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        cd openwrt
+        echo "OPENWRT_PATH=$PWD" >>$GITHUB_ENV
+        COMMIT_AUTHOR=$(git show -s --date=short --format="作者: %an")
+        echo "COMMIT_AUTHOR=$COMMIT_AUTHOR" >>$GITHUB_ENV
+        COMMIT_DATE=$(git show -s --date=short --format="时间: %ci")
+        echo "COMMIT_DATE=$COMMIT_DATE" >>$GITHUB_ENV
+        COMMIT_MESSAGE=$(git show -s --date=short --format="内容: %s")
+        echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >>$GITHUB_ENV
+        COMMIT_HASH=$(git show -s --date=short --format="hash: %H")
+        echo "COMMIT_HASH=$COMMIT_HASH" >>$GITHUB_ENV
+
 
     - name: Cache
       uses: klever1988/cachewrtbuild@main
@@ -160,8 +171,20 @@ jobs:
     - name: Generate release body
       if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
+        # 创建一个标记的下载链接
         echo "![](https://img.shields.io/github/downloads/${{ github.repository }}/${{ steps.tag.outputs.release_tag }}/total?style=flat-square)" >> release.txt
+        
+        # 添加固件版本信息
+        echo "### 🧊 固件版本" >> release.txt
+        echo "- 固件编译前最后一次➦[主源码](${{ env.REPO_URL }})更新记录" >> release.txt
+        echo "- ${{ env.COMMIT_AUTHOR }}" >> release.txt
+        echo "- ${{ env.COMMIT_DATE }}" >> release.txt
+        echo "- ${{ env.COMMIT_MESSAGE }}" >> release.txt
+        echo "- ${{ env.COMMIT_HASH }}" >> release.txt
+        
+        # 添加设备信息
         echo "- FriendlyARM NanoPi R4S " >> release.txt
+
 
     - name: Upload firmware to release
       uses: softprops/action-gh-release@v1
