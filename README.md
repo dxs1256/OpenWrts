@@ -1,4 +1,4 @@
-  <p align="center">
+
     👉 每周定时自动拉取Openwrt最新源码编译，自动发布到 [Releases](https://github.com/dxs1256/OpenWrts/releases "Releases")👈
 
 ### 🎯固件默认设置
