@@ -154,14 +154,18 @@ jobs:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
 
+    # 提取内核版本号并设置为KERNEL环境变量
     - name: Organize files
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "FIRMWARE=$PWD" >>$GITHUB_ENV
+        KERNEL_VERSION=$(cat *.manifest | grep ^kernel | cut -d- -f2 | tr -d ' ')
+        echo "KERNEL=$KERNEL_VERSION" >>$GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
+
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@main
