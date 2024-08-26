@@ -1,5 +1,5 @@
   <p align="center">
-  👉 每周定时自动拉取Openwrt最新源码编译，自动发布到 [<a herf="https://github.com/dxs1256/OpenWrts/releases"> Releases </a>]👈
+  👉 每周定时自动拉取 Openwrt 最新源码编译，自动发布到 [Releases]👈
 
 ### 🎯固件默认设置
 - 路由器地址: `192.168.10.1`
