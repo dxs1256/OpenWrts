@@ -172,8 +172,6 @@ jobs:
       run: |
         # 创建一个标记的下载链接
         echo "![](https://img.shields.io/github/downloads/${{ github.repository }}/${{ steps.tag.outputs.release_tag }}/total?style=flat-square)" >> release.txt
-        # 添加设备信息
-        echo "- FriendlyARM NanoPi R4S " >> release.txt
         # 添加固件版本信息
         echo "### 🧊 固件版本" >> release.txt
         echo "- 固件编译前最后一次➦[主源码](${{ env.REPO_URL }})更新记录" >> release.txt
