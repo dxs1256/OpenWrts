@@ -186,7 +186,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: R${{ env.FILE_DATE }} for Rockchip_R4S
+        name: R${{ env.FILE_DATE }} for ${{ env.DEVICE_NAME }}
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
