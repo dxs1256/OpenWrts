@@ -5,3 +5,6 @@ git clone --depth 1 https://github.com/zzsj0928/luci-app-pushbot package/otherap
 
 # OpenClash
 git clone --depth 1 https://github.com/vernesong/OpenClash.git package/luci-app-openclash
+
+# 添加 unishare
+git clone https://github.com/dxs12566/nas-packages.git package/luci-app-unishare
