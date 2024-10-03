@@ -1,7 +1,28 @@
 #!/bin/bash
-git clone --depth 1 https://github.com/bigbugcc/OpenwrtApp package/otherapp/OpenwrtApp
-git clone --depth 1 https://github.com/destan19/OpenAppFilter package/otherapp/OpenAppFilter
+
+# Git稀疏克隆，只克隆指定目录到本地
+function git_sparse_clone() {
+  branch="$1" repourl="$2" && shift 2
+  git clone --depth=1 -b $branch --single-branch --filter=blob:none --sparse $repourl
+  repodir=$(echo $repourl | awk -F '/' '{print $(NF)}')
+  cd $repodir && git sparse-checkout set $@
+  mv -f $@ ../package
+  cd .. && rm -rf $repodir
+}
+
+# 添加aliyundrive-webdav
+rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
+rm -rf feeds/packages/multimedia/aliyundrive-webdav
+git clone https://github.com/messense/aliyundrive-webdav.git
+cp -r aliyundrive-webdav/openwrt/aliyundrive-webdav feeds/packages/multimedia
+cp -r aliyundrive-webdav/openwrt/luci-app-aliyundrive-webdav feeds/luci/applications
+rm -rf aliyundrive-webdav
+
+#添加pushbot
 git clone --depth 1 https://github.com/zzsj0928/luci-app-pushbot package/otherapp/luci-app-pushbot
+
+#添加adguardhome
+git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/luci-app-adguardhome
 
 # OpenClash
 git clone --depth 1 https://github.com/vernesong/OpenClash.git package/luci-app-openclash
