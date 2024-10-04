@@ -1,9 +1,9 @@
 #!/bin/bash
 # Modify default system settings
 
-# passwall
-echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> feeds.conf.default
-echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> feeds.conf.default
+# 科学上网插件
+git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/openwrt-passwall
+git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
 
 # iStore
 echo "src-git istore https://github.com/linkease/istore;main" >> feeds.conf.default
