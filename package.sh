@@ -24,8 +24,5 @@ git clone --depth 1 https://github.com/zzsj0928/luci-app-pushbot package/otherap
 #添加adguardhome
 git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/luci-app-adguardhome
 
-# OpenClash
-git clone --depth 1 https://github.com/vernesong/OpenClash.git package/luci-app-openclash
-
 # 添加 unishare
 git clone https://github.com/dxs12566/nas-packages.git package/luci-app-unishare
